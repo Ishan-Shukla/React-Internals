@@ -4,16 +4,16 @@
 
 ```
 ╔══════════════════════════════════════════════════════════════════════════╗
-║                         YOUR APPLICATION CODE                          ║
-║                                                                        ║
-║  function App() {                                                      ║
-║    const [state, setState] = useState(init);                           ║
-║    useEffect(() => { ... }, [dep]);                                    ║
-║    return <div onClick={handler}>{state}</div>;                        ║
-║  }                                                                     ║
-║                                                                        ║
-║  const root = createRoot(container);                                   ║
-║  root.render(<App />);                                                 ║
+║                         YOUR APPLICATION CODE                            ║
+║                                                                          ║
+║  function App() {                                                        ║
+║    const [state, setState] = useState(init);                             ║
+║    useEffect(() => { ... }, [dep]);                                      ║
+║    return <div onClick={handler}>{state}</div>;                          ║
+║  }                                                                       ║
+║                                                                          ║
+║  const root = createRoot(container);                                     ║
+║  root.render(<App />);                                                   ║
 ╚═══════════════════════════════════╤══════════════════════════════════════╝
                                     │
                     ┌───────────────┴───────────────┐
@@ -25,7 +25,7 @@
 ║  ┌─────────────────────────┐  ║ ║  ┌─────────────────────────────────┐  ║
 ║  │ createElement / jsx()   │  ║ ║  │ createRoot()                    │  ║
 ║  │ → ReactElement objects  │  ║ ║  │ → FiberRoot + HostRoot fiber    │  ║
-║  └─────────────────────────┘  ║ ║  │ → Attach event listeners       │  ║
+║  └─────────────────────────┘  ║ ║  │ → Attach event listeners        │  ║
 ║                               ║ ║  └─────────────────────────────────┘  ║
 ║  ┌─────────────────────────┐  ║ ║                                       ║
 ║  │ Hooks Dispatcher        │  ║ ║  ┌─────────────────────────────────┐  ║
@@ -37,7 +37,7 @@
 ║  ┌─────────────────────────┐  ║ ║  │ commitUpdate()                  │  ║
 ║  │ Special Types           │  ║ ║  └─────────────────────────────────┘  ║
 ║  │ memo, lazy, forwardRef  │  ║ ║                                       ║
-║  │ createContext            │  ║ ║  ┌─────────────────────────────────┐  ║
+║  │ createContext           │  ║ ║  ┌─────────────────────────────────┐  ║
 ║  │ Suspense, Fragment      │  ║ ║  │ Event System                    │  ║
 ║  └─────────────────────────┘  ║ ║  │ Delegation on root container    │  ║
 ║                               ║ ║  │ SyntheticEvent creation         │  ║
@@ -46,54 +46,54 @@
                                   ║  └─────────────────────────────────┘  ║
                                   ╚════════════════╤══════════════════════╝
                                                    │
-                              ┌─────────────────────┘
+                              ┌────────────────────┘
                               ▼
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                     REACT-RECONCILER PACKAGE                              ║
-║                     (The Core Algorithm)                                  ║
-║                                                                           ║
-║  ┌─────────────────────────────────────────────────────────────────────┐  ║
-║  │                        FIBER TREE                                   │  ║
-║  │                                                                     │  ║
-║  │   CURRENT TREE ◄──alternate──► WORK-IN-PROGRESS TREE               │  ║
-║  │   (on screen)                   (being built)                       │  ║
-║  │                                                                     │  ║
-║  │   FiberRoot.current ──► HostRoot                                    │  ║
-║  │                           │                                         │  ║
-║  │                          App (tag:0, FunctionComponent)             │  ║
-║  │                           │  memoizedState → hooks linked list      │  ║
-║  │                           │  updateQueue → effects list             │  ║
-║  │                          div (tag:5, HostComponent)                 │  ║
-║  │                           │  stateNode → <div> DOM node             │  ║
-║  │                           │  flags → Update | Ref                   │  ║
-║  │                         text (tag:6, HostText)                      │  ║
-║  │                           │  stateNode → Text DOM node              │  ║
-║  └─────────────────────────────────────────────────────────────────────┘  ║
-║                                                                           ║
-║  ┌──────────────────────┐  ┌──────────────────────┐  ┌────────────────┐  ║
+║                     REACT-RECONCILER PACKAGE                               ║
+║                     (The Core Algorithm)                                   ║
+║                                                                            ║
+║  ┌─────────────────────────────────────────────────────────────────────┐   ║
+║  │                        FIBER TREE                                   │   ║
+║  │                                                                     │   ║
+║  │   CURRENT TREE ◄──alternate──► WORK-IN-PROGRESS TREE                │   ║
+║  │   (on screen)                   (being built)                       │   ║
+║  │                                                                     │   ║
+║  │   FiberRoot.current ──► HostRoot                                    │   ║
+║  │                           │                                         │   ║
+║  │                          App (tag:0, FunctionComponent)             │   ║
+║  │                           │  memoizedState → hooks linked list      │   ║
+║  │                           │  updateQueue → effects list             │   ║
+║  │                          div (tag:5, HostComponent)                 │   ║
+║  │                           │  stateNode → <div> DOM node             │   ║
+║  │                           │  flags → Update | Ref                   │   ║
+║  │                         text (tag:6, HostText)                      │   ║
+║  │                           │  stateNode → Text DOM node              │   ║
+║  └─────────────────────────────────────────────────────────────────────┘   ║
+║                                                                            ║
+║  ┌───────────────────────┐  ┌───────────────────────┐  ┌────────────────┐  ║
 ║  │    WORK LOOP          │  │    HOOKS SYSTEM       │  │   LANES        │  ║
 ║  │                       │  │                       │  │                │  ║
 ║  │ workLoopSync()        │  │ HooksDispatcherOnMount│  │ SyncLane       │  ║
 ║  │ workLoopConcurrent()  │  │ HooksDispatcherOnUpd  │  │ InputContLane  │  ║
 ║  │                       │  │                       │  │ DefaultLane    │  ║
-║  │ ┌─────────────────┐   │  │ mountState()          │  │ TransitionLane │  ║
-║  │ │ beginWork()      │   │  │ updateState()         │  │ RetryLane      │  ║
-║  │ │ Process fiber    │   │  │ mountEffect()         │  │ IdleLane       │  ║
-║  │ │ Call component   │   │  │ updateEffect()        │  │                │  ║
-║  │ │ Reconcile kids   │   │  │ mountMemo()           │  │ getNextLanes() │  ║
-║  │ └────────┬────────┘   │  │ updateMemo()           │  │ markRootUpd()  │  ║
-║  │          │             │  │                       │  │ mergeLanes()   │  ║
+║  │ ┌──────────────────┐  │  │ mountState()          │  │ TransitionLane │  ║
+║  │ │ beginWork()      │  │  │ updateState()         │  │ RetryLane      │  ║
+║  │ │ Process fiber    │  │  │ mountEffect()         │  │ IdleLane       │  ║
+║  │ │ Call component   │  │  │ updateEffect()        │  │                │  ║
+║  │ │ Reconcile kids   │  │  │ mountMemo()           │  │ getNextLanes() │  ║
+║  │ └────────┬─────────┘  │  │ updateMemo()          │  │ markRootUpd()  │  ║
+║  │          │            │  │                       │  │ mergeLanes()   │  ║
 ║  │ ┌────────▼────────┐   │  │ hook = {              │  └────────────────┘  ║
 ║  │ │ completeWork()  │   │  │   memoizedState,      │                      ║
 ║  │ │ Create DOM      │   │  │   baseState,          │  ┌────────────────┐  ║
 ║  │ │ Diff props      │   │  │   queue: { pending }, │  │ UPDATE QUEUE   │  ║
 ║  │ │ Bubble flags    │   │  │   next              } │  │                │  ║
-║  │ └─────────────────┘   │  └──────────────────────┘  │ Circular list  │  ║
-║  └──────────────────────┘                              │ of updates     │  ║
+║  │ └─────────────────┘   │  └───────────────────────┘  │ Circular list  │  ║
+║  └───────────────────────┘                             │ of updates     │  ║
 ║                                                        │ per fiber      │  ║
-║  ┌──────────────────────┐  ┌──────────────────────┐  │                │  ║
-║  │   COMMIT PHASE        │  │   CHILD RECONCILER   │  │ processUpdate │  ║
-║  │                       │  │                       │  │  Queue()      │  ║
+║  ┌───────────────────────┐  ┌───────────────────────┐  │                │  ║
+║  │   COMMIT PHASE        │  │   CHILD RECONCILER    │  │ processUpdate  │  ║
+║  │                       │  │                       │  │  Queue()       │  ║
 ║  │ 1. Before Mutation    │  │ reconcileSingleElem() │  └────────────────┘  ║
 ║  │    getSnapshotBefore  │  │ reconcileChildArray() │                      ║
 ║  │                       │  │                       │  ┌────────────────┐  ║
@@ -104,79 +104,79 @@
 ║  │ 3. root.current swap  │  │ Key matching          │  │ fallback mgmt  │  ║
 ║  │                       │  │ Type matching         │  │ Offscreen      │  ║
 ║  │ 4. Layout             │  │ Placement flags       │  └────────────────┘  ║
-║  │    useLayoutEffect    │  └──────────────────────┘                      ║
-║  │    componentDidMount  │                                                ║
-║  │    Ref attachment     │  ┌──────────────────────┐                      ║
+║  │    useLayoutEffect    │  └───────────────────────┘                      ║
+║  │    componentDidMount  │                                                 ║
+║  │    Ref attachment     │  ┌───────────────────────┐                      ║
 ║  │                       │  │  ERROR HANDLING       │                      ║
 ║  │ 5. Passive (async)    │  │                       │                      ║
 ║  │    useEffect          │  │  throwException()     │                      ║
 ║  │                       │  │  Find error boundary  │                      ║
-║  └──────────────────────┘  │  Unwind fiber tree    │                      ║
+║  └───────────────────────┘  │  Unwind fiber tree    │                      ║
 ║                             │  Re-render boundary   │                      ║
-║                             └──────────────────────┘                      ║
+║                             └───────────────────────┘                      ║
 ╚═══════════════════════════════════╤════════════════════════════════════════╝
                                     │
                                     ▼
 ╔═══════════════════════════════════════════════════════════════════════════╗
-║                         SCHEDULER PACKAGE                                ║
-║                         (scheduler)                                      ║
-║                                                                          ║
-║  ┌────────────────────────┐  ┌────────────────────────┐                  ║
+║                         SCHEDULER PACKAGE                                 ║
+║                         (scheduler)                                       ║
+║                                                                           ║
+║  ┌─────────────────────────┐  ┌─────────────────────────┐                 ║
 ║  │   TASK QUEUE            │  │   TIMER QUEUE           │                 ║
 ║  │   (min-heap)            │  │   (min-heap)            │                 ║
 ║  │                         │  │                         │                 ║
-║  │  sorted by expiration   │  │  sorted by start time   │                ║
-║  │                         │  │  (delayed tasks)        │                ║
-║  │  ┌───┐ ┌───┐ ┌───┐     │  │                         │                ║
-║  │  │ 1 │ │ 2 │ │ 3 │ ... │  │  timer fires → move to  │                ║
-║  │  └───┘ └───┘ └───┘     │  │  task queue              │                ║
-║  └────────────┬────────────┘  └─────────────────────────┘                ║
-║               │                                                          ║
-║  ┌────────────▼────────────┐  ┌─────────────────────────┐                ║
-║  │   WORK LOOP             │  │  YIELD MECHANISM         │               ║
-║  │                         │  │                          │               ║
-║  │  while (task &&         │  │  shouldYieldToHost()     │               ║
-║  │    !shouldYield()) {    │  │  │                       │               ║
-║  │    task.callback();     │  │  ├─ elapsed < 5ms?       │               ║
-║  │  }                      │  │  │  → false (keep going) │               ║
-║  │                         │  │  └─ elapsed >= 5ms?      │               ║
-║  │  continuation?          │  │     → true (yield!)      │               ║
-║  │  → keep task alive      │  │                          │               ║
-║  │  done?                  │  │  MessageChannel          │               ║
-║  │  → pop from queue       │  │  → near-zero delay       │               ║
-║  └─────────────────────────┘  │  → schedule next tick    │               ║
-║                               └──────────────────────────┘               ║
-║  Priority Levels:                                                        ║
-║  ┌─────────────────────────────────────────────────────┐                 ║
-║  │ Immediate    -1ms    (expired! run NOW)             │                 ║
-║  │ UserBlocking 250ms   (click, input)                 │                 ║
-║  │ Normal       5000ms  (default, transitions)         │                 ║
-║  │ Low          10000ms (background work)              │                 ║
-║  │ Idle         ~∞      (only when nothing else)       │                 ║
-║  └─────────────────────────────────────────────────────┘                 ║
+║  │  sorted by expiration   │  │  sorted by start time   │                 ║
+║  │                         │  │  (delayed tasks)        │                 ║
+║  │  ┌───┐ ┌───┐ ┌───┐      │  │                         │                 ║
+║  │  │ 1 │ │ 2 │ │ 3 │ ...  │  │  timer fires → move to  │                 ║
+║  │  └───┘ └───┘ └───┘      │  │  task queue             │                 ║
+║  └────────────┬────────────┘  └─────────────────────────┘                 ║
+║               │                                                           ║
+║  ┌────────────▼────────────┐  ┌──────────────────────────┐                ║
+║  │   WORK LOOP             │  │  YIELD MECHANISM         │                ║
+║  │                         │  │                          │                ║
+║  │  while (task &&         │  │  shouldYieldToHost()     │                ║
+║  │    !shouldYield()) {    │  │  │                       │                ║
+║  │    task.callback();     │  │  ├─ elapsed < 5ms?       │                ║
+║  │  }                      │  │  │  → false (keep going) │                ║
+║  │                         │  │  └─ elapsed >= 5ms?      │                ║
+║  │  continuation?          │  │     → true (yield!)      │                ║
+║  │  → keep task alive      │  │                          │                ║
+║  │  done?                  │  │  MessageChannel          │                ║
+║  │  → pop from queue       │  │  → near-zero delay       │                ║
+║  └─────────────────────────┘  │  → schedule next tick    │                ║
+║                               └──────────────────────────┘                ║
+║  Priority Levels:                                                         ║
+║  ┌─────────────────────────────────────────────────────┐                  ║
+║  │ Immediate    -1ms    (expired! run NOW)             │                  ║
+║  │ UserBlocking 250ms   (click, input)                 │                  ║
+║  │ Normal       5000ms  (default, transitions)         │                  ║
+║  │ Low          10000ms (background work)              │                  ║
+║  │ Idle         ~∞      (only when nothing else)       │                  ║
+║  └─────────────────────────────────────────────────────┘                  ║
 ╚═══════════════════════════════════╤═══════════════════════════════════════╝
                                     │
                                     ▼
 ╔═══════════════════════════════════════════════════════════════════════════╗
-║                         BROWSER                                          ║
-║                                                                          ║
-║  ┌─────────┐  ┌──────────┐  ┌───────────┐  ┌───────────┐               ║
+║                         BROWSER                                           ║
+║                                                                           ║
+║  ┌──────────┐  ┌───────────┐  ┌────────────┐  ┌───────────┐               ║
 ║  │  Event   │  │  Layout   │  │   Paint    │  │ Composite │               ║
-║  │  Loop    │  │  (reflow) │  │ (rasterize)│  │  (GPU)    │              ║
-║  │          │  │           │  │            │  │           │              ║
-║  │ Tasks    │  │ Calculate │  │ Convert    │  │ Layer     │              ║
-║  │ Microtask│  │ positions │  │ to pixels  │  │ composit. │              ║
-║  │ rAF      │  │ & sizes   │  │            │  │           │              ║
-║  │ Paint    │  │           │  │            │  │           │              ║
-║  └─────────┘  └──────────┘  └───────────┘  └───────────┘               ║
-║                                                                          ║
-║                    ┌──────────────────┐                                  ║
-║                    │   DOM            │                                  ║
-║                    │   The actual     │                                  ║
-║                    │   document that  │                                  ║
-║                    │   the user sees  │                                  ║
-║                    └──────────────────┘                                  ║
-╚══════════════════════════════════════════════════════════════════════════╝
+║  │  Loop    │  │  (reflow) │  │ (rasterize)│  │  (GPU)    │               ║
+║  │          │  │           │  │            │  │           │               ║
+║  │ Tasks    │  │ Calculate │  │ Convert    │  │ Layer     │               ║
+║  │ Microtask│  │ positions │  │ to pixels  │  │ composit. │               ║
+║  │ rAF      │  │ & sizes   │  │            │  │           │               ║
+║  │ Paint    │  │           │  │            │  │           │               ║
+║  └──────────┘  └───────────┘  └────────────┘  └───────────┘               ║
+║                                                                           ║
+║                    ┌──────────────────┐                                   ║
+║                    │   DOM            │                                   ║
+║                    │   The actual     │                                   ║
+║                    │   document that  │                                   ║
+║                    │   the user sees  │                                   ║
+║                    └──────────────────┘                                   ║
+╚═══════════════════════════════════════════════════════════════════════════╝
 ```
 
 ## Package Dependency Graph
@@ -194,7 +194,7 @@
               ┌──────────┴──────────────┐
               │                         │
               ▼                         ▼
-    ┌─────────────────┐      ┌──────────────────┐
+    ┌──────────────────┐      ┌────────────────────┐
     │ react-reconciler │      │    react-dom       │
     │ (core algorithm) │◄─────│ (DOM host config)  │
     │                  │      │ (event system)     │
@@ -202,18 +202,18 @@
     │ • Work loop      │      │ • appendChild      │
     │ • Hooks impl     │      │ • diffProperties   │
     │ • Reconciliation │      │ • Event delegation │
-    │ • Commit phases  │      └──────────────────┘
+    │ • Commit phases  │      └────────────────────┘
     │ • Lanes          │
     └────────┬─────────┘
              │ uses for time-slicing
              │ and task scheduling
              ▼
-    ┌─────────────────┐      ┌──────────────────┐
+    ┌──────────────────┐      ┌────────────────────┐
     │   scheduler      │      │    shared          │
     │ (task queue,     │      │ (constants, types  │
     │  shouldYield,    │      │  feature flags,    │
     │  priorities)     │      │  utilities)        │
-    └─────────────────┘      └──────────────────┘
+    └──────────────────┘      └────────────────────┘
 
 Key: ──► means "depends on" / "uses"
 ```

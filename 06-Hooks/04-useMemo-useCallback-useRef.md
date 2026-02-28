@@ -150,7 +150,7 @@ hook.memoizedState for useRef:
 
 Render 1: const ref = useRef(0)    → ref = { current: 0 }
 Render 2: const ref = useRef(0)    → ref = { current: 0 } (same object!)
-          ref.current = 5           → { current: 5 } (mutation, no re-render)
+          ref.current = 5          → { current: 5 } (mutation, no re-render)
 Render 3: const ref = useRef(0)    → ref = { current: 5 } (still same object)
 ```
 

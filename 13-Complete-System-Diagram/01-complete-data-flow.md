@@ -94,10 +94,10 @@ PHASE 2: RENDER (The "Reconciliation" or "Diffing" phase)
 │   For EACH fiber node (depth-first traversal):
 │   ┌──────────────────────────────────────────────────────────────┐
 │   │                                                              │
-│   │  ★ beginWork(current, wip, renderLanes) ★                   │
+│   │  ★ beginWork(current, wip, renderLanes) ★                    │
 │   │  │                                                           │
 │   │  ├── BAILOUT CHECK:                                          │
-│   │  │   oldProps === newProps && !contextChanged && !updateLanes │
+│   │  │   oldProps === newProps && !contextChanged && !updateLanes│
 │   │  │   → bailoutOnAlreadyFinishedWork → skip subtree           │
 │   │  │                                                           │
 │   │  ├── switch (wip.tag):                                       │
@@ -106,10 +106,10 @@ PHASE 2: RENDER (The "Reconciliation" or "Diffing" phase)
 │   │  │   ├── Set hooks dispatcher (mount vs update)              │
 │   │  │   ├── ★ Call Component(props) ★                           │
 │   │  │   │   ├── useState() → process update queue               │
-│   │  │   │   │   reducer(0, prev => prev+1) → 1                 │
-│   │  │   │   ├── useEffect() → push effect to fiber             │
-│   │  │   │   ├── useMemo() → check deps, maybe recompute        │
-│   │  │   │   └── Returns new JSX elements                       │
+│   │  │   │   │   reducer(0, prev => prev+1) → 1                  │
+│   │  │   │   ├── useEffect() → push effect to fiber              │
+│   │  │   │   ├── useMemo() → check deps, maybe recompute         │
+│   │  │   │   └── Returns new JSX elements                        │
 │   │  │   ├── Set ContextOnlyDispatcher (prevent hooks outside)   │
 │   │  │   └── reconcileChildren(newElements)                      │
 │   │  │       ├── Diff new elements vs current child fibers       │
@@ -126,23 +126,23 @@ PHASE 2: RENDER (The "Reconciliation" or "Diffing" phase)
 │   │                                                              │
 │   │  If null (leaf node or bailout):                             │
 │   │                                                              │
-│   │  ★ completeWork(current, wip, renderLanes) ★                │
+│   │  ★ completeWork(current, wip, renderLanes) ★                 │
 │   │  │                                                           │
 │   │  ├── HostComponent (mount):                                  │
 │   │  │   ├── document.createElement(type)                        │
 │   │  │   ├── setInitialProperties(dom, type, props)              │
-│   │  │   ├── appendAllChildren(dom, wip) ← build DOM subtree    │
-│   │  │   └── wip.stateNode = dom                                │
+│   │  │   ├── appendAllChildren(dom, wip) ← build DOM subtree     │
+│   │  │   └── wip.stateNode = dom                                 │
 │   │  │                                                           │
 │   │  ├── HostComponent (update):                                 │
 │   │  │   ├── diffProperties(oldProps, newProps)                  │
-│   │  │   ├── wip.updateQueue = ['className','new','style',{...}]│
-│   │  │   └── wip.flags |= Update                                │
+│   │  │   ├── wip.updateQueue = ['className','new','style',{...}] │
+│   │  │   └── wip.flags |= Update                                 │
 │   │  │                                                           │
 │   │  ├── bubbleProperties(wip)                                   │
-│   │  │   wip.subtreeFlags |= child.flags | child.subtreeFlags   │
+│   │  │   wip.subtreeFlags |= child.flags | child.subtreeFlags    │
 │   │  │                                                           │
-│   │  └── Move to sibling or return to parent                    │
+│   │  └── Move to sibling or return to parent                     │
 │   │                                                              │
 │   └──────────────────────────────────────────────────────────────┘
 │

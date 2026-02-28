@@ -276,20 +276,20 @@ useOptimistic timeline:
   User submits "C"
 
   ┌──────────────────────────────────────────────┐
-  │ Immediately:                                  │
-  │   addOptimisticTodo("C")                      │
-  │   optimisticTodos = [A, B, C(sending)]        │
-  │   UI shows: A, B, C(grayed)                   │
+  │ Immediately:                                 │
+  │   addOptimisticTodo("C")                     │
+  │   optimisticTodos = [A, B, C(sending)]       │
+  │   UI shows: A, B, C(grayed)                  │
   ├──────────────────────────────────────────────┤
-  │ While awaiting server:                        │
-  │   optimisticTodos = [A, B, C(sending)]        │
-  │   UI shows: A, B, C(grayed)                   │
+  │ While awaiting server:                       │
+  │   optimisticTodos = [A, B, C(sending)]       │
+  │   UI shows: A, B, C(grayed)                  │
   ├──────────────────────────────────────────────┤
-  │ Server responds, parent re-renders with:      │
-  │   todos = [A, B, C]  (real prop)              │
-  │   Optimistic state automatically cleared      │
-  │   optimisticTodos = [A, B, C]                 │
-  │   UI shows: A, B, C  (fully opaque)           │
+  │ Server responds, parent re-renders with:     │
+  │   todos = [A, B, C]  (real prop)             │
+  │   Optimistic state automatically cleared     │
+  │   optimisticTodos = [A, B, C]                │
+  │   UI shows: A, B, C  (fully opaque)          │
   └──────────────────────────────────────────────┘
 ```
 

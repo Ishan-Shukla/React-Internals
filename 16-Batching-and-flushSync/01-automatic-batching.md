@@ -134,11 +134,11 @@ let isBatchingUpdates = false;
 
 function batchedUpdates(fn) {
   const prev = isBatchingUpdates;
-  isBatchingUpdates = true;    // ← Set flag
+  isBatchingUpdates = true;     // ← Set flag
   try {
     fn();                       // ← Your event handler
   } finally {
-    isBatchingUpdates = prev;  // ← Unset flag
+    isBatchingUpdates = prev;   // ← Unset flag
     if (!isBatchingUpdates) {
       flushSyncCallbackQueue(); // ← Flush immediately
     }
@@ -266,11 +266,11 @@ Context                     React 17        React 18
 ──────────────────────      ─────────       ─────────
 React event handler         Batched ✓       Batched ✓
 setTimeout/setInterval      NOT batched     Batched ✓
-Promise.then               NOT batched     Batched ✓
+Promise.then                NOT batched     Batched ✓
 Native event listener       NOT batched     Batched ✓
 requestAnimationFrame       NOT batched     Batched ✓
-queueMicrotask             NOT batched     Batched ✓
-MutationObserver           NOT batched     Batched ✓
+queueMicrotask              NOT batched     Batched ✓
+MutationObserver            NOT batched     Batched ✓
 flushSync                   N/A             Forces immediate flush
 ```
 

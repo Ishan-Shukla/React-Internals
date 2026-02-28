@@ -35,7 +35,7 @@ DOM TREE:                              FIBER TREE:
  │    └── <div id="app">                └── App
  │         └── <h1>App</h1>                  ├── div#app
  │                                           │    └── h1
- ├── <div id="modal-root">                  └── Modal ← still child of App!
+ ├── <div id="modal-root">                   └── Modal ← still child of App!
  │    └── <div class="modal">     ◄──────────    └── div.modal ← HostPortal
  │         └── <p>I'm in modal</p>                     └── p
  │

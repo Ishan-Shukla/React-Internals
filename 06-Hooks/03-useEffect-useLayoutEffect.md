@@ -42,7 +42,7 @@ const HookLayout     = 0b0100;  // useLayoutEffect (sync, before paint)
 ```javascript
 function mountEffect(create, deps) {
   return mountEffectImpl(
-    PassiveEffect | PassiveStaticEffect,  // Fiber flags
+    PassiveEffect | PassiveStaticEffect,   // Fiber flags
     HookPassive,                           // Hook effect tag
     create,
     deps,
@@ -68,7 +68,7 @@ function mountEffectImpl(fiberFlags, hookFlags, create, deps) {
 
   // Create effect and store on hook
   hook.memoizedState = pushEffect(
-    HookHasEffect | hookFlags,  // Always has effect on mount
+    HookHasEffect | hookFlags,   // Always has effect on mount
     create,
     createEffectInstance(),      // { destroy: undefined }
     nextDeps,
@@ -168,12 +168,12 @@ function areHookInputsEqual(nextDeps, prevDeps) {
 
   for (let i = 0; i < prevDeps.length && i < nextDeps.length; i++) {
     if (Object.is(nextDeps[i], prevDeps[i])) {
-      continue;  // Same → skip
+      continue;    // Same → skip
     }
     return false;  // Different → deps changed
   }
 
-  return true;  // All deps same
+  return true;     // All deps same
 }
 ```
 
@@ -291,45 +291,45 @@ useEffect execution order (ALL cleanups first, then ALL setups):
 
 ```
 Render 1 (Mount):
-  ┌──────────────────────────────────────────────────────┐
-  │ Render Phase  │ Commit Phase            │ After Paint │
-  │               │                         │             │
-  │ Component()   │ DOM mutations           │ useEffect   │
-  │ useEffect     │ useLayoutEffect runs    │ setup() ────┤
-  │ pushEffect    │                         │  return     │
-  │ (HookHasEffect│                        │  cleanup fn │
-  │  tag set)     │                         │             │
-  └──────────────────────────────────────────────────────┘
+  ┌────────────────────────────────────────────────────────┐
+  │ Render Phase  │ Commit Phase            │ After Paint  │
+  │               │                         │              │
+  │ Component()   │ DOM mutations           │ useEffect    │
+  │ useEffect     │ useLayoutEffect runs    │ setup()  ────┤
+  │ pushEffect    │                         │  return      │
+  │ (HookHasEffect│                         │  cleanup fn  │
+  │  tag set)     │                         │              │
+  └────────────────────────────────────────────────────────┘
 
 Render 2 (deps changed):
-  ┌──────────────────────────────────────────────────────┐
-  │ Render Phase  │ Commit Phase            │ After Paint │
-  │               │                         │             │
-  │ Component()   │ DOM mutations           │ cleanup()   │
-  │ useEffect     │ useLayoutEffect runs    │ from prev   │
-  │ deps differ   │                         │ render      │
-  │ → HookHasEffect│                        │    │        │
-  │   tag set     │                         │    ▼        │
-  │               │                         │ setup() new │
-  └──────────────────────────────────────────────────────┘
+  ┌────────────────────────────────────────────────────────┐
+  │ Render Phase   │ Commit Phase            │ After Paint │
+  │                │                         │             │
+  │ Component()    │ DOM mutations           │ cleanup()   │
+  │ useEffect      │ useLayoutEffect runs    │ from prev   │
+  │ deps differ    │                         │ render      │
+  │ → HookHasEffect│                         │    │        │
+  │   tag set      │                         │    ▼        │
+  │                │                         │ setup() new │
+  └────────────────────────────────────────────────────────┘
 
 Render 3 (deps same):
-  ┌──────────────────────────────────────────────────────┐
-  │ Render Phase  │ Commit Phase            │ After Paint │
-  │               │                         │             │
-  │ Component()   │ DOM mutations           │ (nothing!)  │
-  │ useEffect     │                         │ Effect NOT  │
-  │ deps same     │                         │ re-run      │
-  │ → NO HookHas  │                         │             │
-  │   Effect tag  │                         │             │
-  └──────────────────────────────────────────────────────┘
+  ┌────────────────────────────────────────────────────────┐
+  │ Render Phase  │ Commit Phase            │ After Paint  │
+  │               │                         │              │
+  │ Component()   │ DOM mutations           │ (nothing!)   │
+  │ useEffect     │                         │ Effect NOT   │
+  │ deps same     │                         │ re-run       │
+  │ → NO HookHas  │                         │              │
+  │   Effect tag  │                         │              │
+  └────────────────────────────────────────────────────────┘
 
 Unmount:
-  ┌──────────────────────────────────────────────────────┐
-  │ Commit Phase (deletion)                  │ After Paint│
-  │                                          │            │
-  │ useLayoutEffect cleanup runs (sync)      │ useEffect  │
-  │                                          │ cleanup()  │
-  │                                          │ runs       │
-  └──────────────────────────────────────────────────────┘
+  ┌─────────────────────────────────────────────────────────┐
+  │ Commit Phase (deletion)                  │ After Paint  │
+  │                                          │              │
+  │ useLayoutEffect cleanup runs (sync)      │ useEffect    │
+  │                                          │ cleanup()    │
+  │                                          │ runs         │
+  └─────────────────────────────────────────────────────────┘
 ```

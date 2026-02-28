@@ -194,18 +194,18 @@ startTransition(() => {
 
 ```
 Without startTransition:
-  ┌────────────┐     ┌────────────┐     ┌─────────────┐
-  │ Old Content │ ──► │  Loading...│ ──► │ New Content  │
-  │             │     │  (fallback)│     │              │
-  └────────────┘     └────────────┘     └─────────────┘
+  ┌─────────────┐     ┌────────────┐     ┌─────────────┐
+  │ Old Content │ ──► │  Loading...│ ──► │ New Content │
+  │             │     │  (fallback)│     │             │
+  └─────────────┘     └────────────┘     └─────────────┘
                         jarring!
 
 With startTransition:
-  ┌────────────┐                         ┌─────────────┐
-  │ Old Content │ ──────────────────────► │ New Content  │
-  │ (+ pending  │    (old content stays   │              │
+  ┌─────────────┐                         ┌─────────────┐
+  │ Old Content │ ──────────────────────► │ New Content │
+  │ (+ pending  │    (old content stays   │             │
   │  indicator) │     while new renders)  └─────────────┘
-  └────────────┘
+  └─────────────┘
      smooth!
 ```
 

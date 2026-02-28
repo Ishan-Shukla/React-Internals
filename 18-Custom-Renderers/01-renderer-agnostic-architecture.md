@@ -7,7 +7,7 @@ React's reconciliation algorithm (Fiber, diffing, scheduling, hooks) knows
 Different renderers plug into this interface:
 
 ```
-                         ┌─────────────────────────┐
+                         ┌──────────────────────────┐
                          │    react-reconciler      │
                          │                          │
                          │  Fiber tree              │
@@ -25,17 +25,17 @@ Different renderers plug into this interface:
                          │  • etc.                  │
                          └────────────┬─────────────┘
                                       │
-                    ┌─────────────────┼──────────────────┐
+                    ┌─────────────────┼───────────────────┐
                     │                 │                   │
                     ▼                 ▼                   ▼
-           ┌──────────────┐  ┌──────────────┐  ┌────────────────┐
+           ┌───────────────┐  ┌───────────────┐  ┌────────────────┐
            │  react-dom    │  │ react-native  │  │ react-three-   │
            │               │  │               │  │ fiber          │
            │ createElement │  │ UIManager     │  │ Three.js       │
            │ appendChild   │  │ .createView() │  │ .add()         │
            │ setAttribute  │  │ .setChildren()│  │ .remove()      │
            │ removeChild   │  │ .manageChild()│  │ .update()      │
-           └──────────────┘  └──────────────┘  └────────────────┘
+           └───────────────┘  └───────────────┘  └────────────────┘
                Browser            iOS/Android         WebGL/3D
 ```
 

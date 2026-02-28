@@ -73,17 +73,17 @@ The compiler converts your component into an intermediate representation:
 ```
 function Counter({ initial }) {       HIR:
   const [count, setCount] =           ┌─────────────────────────┐
-    useState(initial);                 │ Block 0:                │
-  const doubled = count * 2;           │   $1 = LoadProp initial │
-  const handleClick = () => {          │   $2 = CallHook useState│
+    useState(initial);                │ Block 0:                │
+  const doubled = count * 2;          │   $1 = LoadProp initial │
+  const handleClick = () => {         │   $2 = CallHook useState│
     setCount(c => c + 1);             │   $3 = Destructure $2   │
-  };                                   │   $4 = $3[0] (count)   │
-  return (                             │   $5 = $3[1] (setCount)│
-    <div onClick={handleClick}>        │   $6 = $4 * 2 (doubled)│
-      {doubled}                        │   $7 = ArrowFunction    │
-    </div>                             │   $8 = JSX div          │
-  );                                   │   Return $8             │
-}                                      └─────────────────────────┘
+  };                                  │   $4 = $3[0] (count)    │
+  return (                            │   $5 = $3[1] (setCount) │
+    <div onClick={handleClick}>       │   $6 = $4 * 2 (doubled) │
+      {doubled}                       │   $7 = ArrowFunction    │
+    </div>                            │   $8 = JSX div          │
+  );                                  │   Return $8             │
+}                                     └─────────────────────────┘
 ```
 
 ### Phase 2: Analyze Dependencies
@@ -184,20 +184,20 @@ React.memo (component-level):
   ┌──────────────────────────┐
   │ Component                │
   │                          │ ← ALL or NOTHING
-  │  value1 ← recomputed    │    If ANY prop changes,
-  │  value2 ← recomputed    │    EVERYTHING recomputes
-  │  value3 ← recomputed    │
-  │  jsx    ← recreated     │
+  │  value1 ← recomputed     │   If ANY prop changes,
+  │  value2 ← recomputed     │   EVERYTHING recomputes
+  │  value3 ← recomputed     │
+  │  jsx    ← recreated      │
   └──────────────────────────┘
 
 React Compiler (value-level):
   ┌──────────────────────────┐
   │ Component                │
   │                          │ ← FINE-GRAINED
-  │  value1 ← recomputed ✓  │    Only the specific values
-  │  value2 ← CACHED     ░  │    that actually changed
-  │  value3 ← CACHED     ░  │    get recomputed
-  │  jsx    ← CACHED     ░  │
+  │  value1 ← recomputed ✓   │   Only the specific values
+  │  value2 ← CACHED     ░   │   that actually changed
+  │  value3 ← CACHED     ░   │   get recomputed
+  │  jsx    ← CACHED     ░   │
   └──────────────────────────┘
 ```
 
@@ -284,25 +284,25 @@ function LegacyComponent() {
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│                    BUILD TIME                              │
-│                                                           │
+│                    BUILD TIME                            │
+│                                                          │
 │  Your Code ──► Babel/SWC ──► React Compiler Plugin ──►   │
-│                               │                           │
-│                    ┌──────────┴──────────┐                │
-│                    │  1. Parse to HIR     │                │
-│                    │  2. Analyze deps     │                │
-│                    │  3. Determine cache  │                │
-│                    │     boundaries       │                │
-│                    │  4. Insert           │                │
-│                    │     useMemoCache     │                │
-│                    │     + cache checks   │                │
-│                    └──────────┬──────────┘                │
-│                               │                           │
-│                    Optimized Code                         │
-└───────────────────────────────┼───────────────────────────┘
+│                               │                          │
+│                    ┌──────────┴──────────┐               │
+│                    │  1. Parse to HIR     │              │
+│                    │  2. Analyze deps     │              │
+│                    │  3. Determine cache  │              │
+│                    │     boundaries       │              │
+│                    │  4. Insert           │              │
+│                    │     useMemoCache     │              │
+│                    │     + cache checks   │              │
+│                    └──────────┬──────────┘               │
+│                               │                          │
+│                    Optimized Code                        │
+└───────────────────────────────┼──────────────────────────┘
                                 │
 ┌───────────────────────────────┼───────────────────────────┐
-│                    RUNTIME                                 │
+│                    RUNTIME                                │
 │                                                           │
 │  useMemoCache(N) → array of N cache slots on fiber        │
 │  Each slot: sentinel → first compute → cached thereafter  │

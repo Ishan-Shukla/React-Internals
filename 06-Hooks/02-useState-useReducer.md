@@ -244,7 +244,7 @@ handleClick() returns → call stack empty → microtask fires
 
 ```
                     ┌──────────────────────┐
-                    │    First Render       │
+                    │    First Render      │
                     │                      │
                     │  useState(0)         │
                     │    │                 │
@@ -277,7 +277,7 @@ handleClick() returns → call stack empty → microtask fires
                     └──────────┬───────────┘
                                │
                     ┌──────────▼───────────┐
-                    │    Re-Render          │
+                    │    Re-Render         │
                     │                      │
                     │  useState(0)         │
                     │  (initialState       │

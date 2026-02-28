@@ -255,27 +255,27 @@ function updateWorkInProgressHook() {
 ## Complete Hook Lifecycle
 
 ```
-                ┌─────────────────────────────────┐
-                │       Component Renders          │
-                │                                  │
-                │  1. Set dispatcher (mount/update)│
-                │  2. Call Component(props)         │
-                │     │                            │
-                │     ├─ useState() → mountState   │
-                │     │   or updateState            │
-                │     │   → returns [state, dispatch]│
-                │     │                            │
-                │     ├─ useEffect() → mountEffect │
-                │     │   or updateEffect           │
-                │     │   → pushes effect to fiber  │
-                │     │                            │
-                │     ├─ useMemo() → mountMemo     │
-                │     │   or updateMemo             │
-                │     │   → returns memoized value  │
-                │     │                            │
-                │     └─ returns JSX elements      │
-                │                                  │
-                │  3. Reconcile children           │
-                │  4. Set ContextOnlyDispatcher    │
-                └─────────────────────────────────┘
+                ┌─────────────────────────────────────┐
+                │       Component Renders             │
+                │                                     │
+                │  1. Set dispatcher (mount/update)   │
+                │  2. Call Component(props)           │
+                │     │                               │
+                │     ├─ useState() → mountState      │
+                │     │   or updateState              │
+                │     │   → returns [state, dispatch] │
+                │     │                               │
+                │     ├─ useEffect() → mountEffect    │
+                │     │   or updateEffect             │
+                │     │   → pushes effect to fiber    │
+                │     │                               │
+                │     ├─ useMemo() → mountMemo        │
+                │     │   or updateMemo               │
+                │     │   → returns memoized value    │
+                │     │                               │
+                │     └─ returns JSX elements         │
+                │                                     │
+                │  3. Reconcile children              │
+                │  4. Set ContextOnlyDispatcher       │
+                └─────────────────────────────────────┘
 ```

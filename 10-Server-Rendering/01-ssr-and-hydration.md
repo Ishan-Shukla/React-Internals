@@ -8,7 +8,7 @@ immediately, without waiting for JavaScript to download and execute.
 ```
 WITHOUT SSR:                           WITH SSR:
 ┌──────────────────────┐               ┌──────────────────────┐
-│ Browser loads HTML    │ (blank page)  │ Browser loads HTML    │ (content!)
+│ Browser loads HTML   │ (blank page)  │ Browser loads HTML   │ (content!)
 │ <div id="root"></div>│               │ <div id="root">      │
 │                      │               │   <h1>Hello</h1>     │
 │ Downloads JS bundle  │ (still blank) │   <p>Content...</p>  │
@@ -73,7 +73,7 @@ Fizz (`react-dom/server`) renders React trees to HTML streams:
 <Layout>
   <Header />                          {/* renders immediately */}
   <Suspense fallback={<Skeleton />}>
-    <SlowContent />                    {/* data not ready yet */}
+    <SlowContent />                   {/* data not ready yet  */}
   </Suspense>
   <Footer />                          {/* renders immediately */}
 </Layout>
@@ -189,10 +189,10 @@ based on user interaction:
 <App>
   <Header />                              {/* hydrates first (shell) */}
   <Suspense fallback={<Skeleton />}>
-    <HeavyComponent />                     {/* hydrates later */}
+    <HeavyComponent />                    {/* hydrates later */}
   </Suspense>
   <Suspense fallback={<Skeleton />}>
-    <AnotherHeavyComponent />              {/* hydrates later */}
+    <AnotherHeavyComponent />             {/* hydrates later */}
   </Suspense>
 </App>
 ```
@@ -217,22 +217,22 @@ RSC is a separate paradigm where components run ONLY on the server:
 
 ```
             Server                          Client
-┌─────────────────────────┐    ┌─────────────────────────┐
-│  Server Components      │    │  Client Components      │
-│  (async, no state,      │    │  (useState, useEffect,  │
-│   direct DB access)     │    │   event handlers)       │
-│                         │    │                         │
-│  async function Page() {│    │  'use client';          │
-│    const data = await   │    │  function Counter() {   │
-│      db.query(...);     │    │    const [c, setC] =    │
-│    return <div>         │    │      useState(0);       │
-│      <Counter data={data}│   │    return <button       │
-│    />;                  │    │      onClick={...}>     │
-│  }                      │    │      {c}               │
-│                         │    │    </button>;           │
-│  Serialized to "Flight" │───►│  Deserialized and      │
-│  wire format            │    │  rendered on client     │
-└─────────────────────────┘    └─────────────────────────┘
+┌──────────────────────────┐    ┌─────────────────────────┐
+│  Server Components       │    │  Client Components      │
+│  (async, no state,       │    │  (useState, useEffect,  │
+│   direct DB access)      │    │   event handlers)       │
+│                          │    │                         │
+│  async function Page() { │    │  'use client';          │
+│    const data = await    │    │  function Counter() {   │
+│      db.query(...);      │    │    const [c, setC] =    │
+│    return <div>          │    │      useState(0);       │
+│      <Counter data={data}│    │   return <button        │
+│    />;                   │    │      onClick={...}>     │
+│  }                       │    │      {c}                │
+│                          │    │    </button>;           │
+│  Serialized to "Flight"  │───►│  Deserialized and       │
+│  wire format             │    │  rendered on client     │
+└──────────────────────────┘    └─────────────────────────┘
 ```
 
 Flight wire format (simplified):

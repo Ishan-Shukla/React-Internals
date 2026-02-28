@@ -42,7 +42,7 @@ fiber.mode = ConcurrentMode;
 // This affects the work loop:
 function renderRootConcurrent(root, lanes) {
   // ...
-  workLoopConcurrent();  // Uses shouldYield()
+  workLoopConcurrent();   // Uses shouldYield()
 }
 
 function renderRootSync(root, lanes) {
@@ -119,7 +119,7 @@ function mountTransition() {
   const [isPending, setPending] = mountState(false);
 
   const start = (callback) => {
-    setPending(true);  // Sync update → shows pending state immediately
+    setPending(true);     // Sync update → shows pending state immediately
 
     startTransition(() => {
       setPending(false);  // Transition update → resolves when transition commits

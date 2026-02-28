@@ -22,8 +22,8 @@ WITHOUT Context:                        WITH Context:
 // createContext returns:
 const ThemeContext = {
   $$typeof: Symbol(react.context),
-  _currentValue: defaultValue,     // Current value (primary renderer)
-  _currentValue2: defaultValue,    // Current value (secondary renderer)
+  _currentValue: defaultValue,      // Current value (primary renderer)
+  _currentValue2: defaultValue,     // Current value (secondary renderer)
   Provider: {
     $$typeof: Symbol(react.provider),
     _context: ThemeContext,         // Back-reference
@@ -209,7 +209,7 @@ function propagateContextChange(workInProgress, context, renderLanes) {
   │  │   └── BUT childLanes has work → clone children        │
   │  │                                                       │
   │  ├── Logo (no context) → actually skipped ✓              │
-  │  └── NavItem (reads ThemeContext)                         │
+  │  └── NavItem (reads ThemeContext)                        │
   │      → lanes marked by propagateContextChange            │
   │      → RE-RENDERS despite memo parent! ✓                 │
   └──────────────────────────────────────────────────────────┘

@@ -128,7 +128,7 @@ Component Tree (from fiber tree):
 │     Navigation                       │
 │   ▼ Main                             │
 │     ▼ Suspense                       │
-│       ▼ AsyncContent ⏳ (suspended)   │
+│       ▼ AsyncContent ⏳ (suspended)  │
 │     Sidebar                          │
 │   Footer                             │
 └──────────────────────────────────────┘
@@ -148,7 +148,7 @@ Props/State Panel (for selected component):
 │   4 Ref: { current: <div> }          │
 │                                      │
 │ Rendered by: Main > Suspense         │
-│ Source: AsyncContent.jsx:15           │
+│ Source: AsyncContent.jsx:15          │
 └──────────────────────────────────────┘
 ```
 
@@ -158,14 +158,14 @@ Props/State Panel (for selected component):
 Profiler Recording — Commit #3 (12.4ms)
 
                     ┌─ App (0.1ms) ──────────────────────────────┐
-                    │                                             │
+                    │                                            │
    ┌─ Header (0.2ms) ──┐    ┌─ Main (0.3ms) ────────┐   Footer
-   │                    │    │                        │   (0.1ms)
-  Logo   Navigation     │  ┌─List (8.2ms)──┐  Sidebar│
-  (0.1ms) (0.1ms)       │  │               │  (0.1ms)│
-                         │  Item  Item  Item│         │
-                         │  2.1ms 3.0ms 2.4ms        │
-                         │  ████  █████ ████          │
+   │                   │    │                       │   (0.1ms)
+  Logo   Navigation    │  ┌─List (8.2ms)──┐  Sidebar│
+  (0.1ms) (0.1ms)      │  │               │  (0.1ms)│
+                       │  Item  Item  Item│         │
+                       │  2.1ms 3.0ms 2.4ms         │
+                       │  ████  █████ ████          │
 
 Colors:
   █ Cold (fast, < 1ms)

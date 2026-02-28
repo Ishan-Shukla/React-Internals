@@ -9,11 +9,11 @@ all events:
 ```
 Traditional DOM:                        React's Approach:
 <div>                                   <div id="root">  ← ALL listeners here
-  <button onclick={fn1}>               │
+  <button onclick={fn1}>                │
     Click me                            │  ┌─ button (no listener)
   </button>                             │  │   "Click me"
-  <input onchange={fn2} />             │  │
-  <a onclick={fn3}>Link</a>            │  ├─ input (no listener)
+  <input onchange={fn2} />              │  │
+  <a onclick={fn3}>Link</a>             │  ├─ input (no listener)
 </div>                                  │  │
                                         │  └─ a (no listener)
 3 listeners on 3 elements              1 listener captures everything
@@ -279,7 +279,7 @@ event properties asynchronously.
 ```
 React 16:                         React 17+:
   document  ← listeners here       document
-     │                                │
+      │                                │
    <div id="root">                  <div id="root"> ← listeners here
       │                                │
     <App />                          <App />

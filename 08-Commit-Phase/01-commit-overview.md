@@ -10,15 +10,15 @@ it starts, it runs to completion. It has three sub-phases:
                         COMMIT PHASE
     ┌──────────────────────────────────────────────────────┐
     │                                                      │
-    │  ┌────────────┐  ┌────────────┐  ┌────────────────┐ │
+    │  ┌─────────────┐  ┌────────────┐  ┌────────────────┐ │
     │  │  BEFORE     │  │  MUTATION  │  │    LAYOUT      │ │
     │  │  MUTATION   │  │   PHASE    │  │    PHASE       │ │
     │  │             │  │            │  │                │ │
     │  │getSnapshot  │  │ DOM writes │  │useLayoutEffect │ │
     │  │BeforeUpdate │  │ insert,    │  │componentDidMt  │ │
     │  │             │  │ update,    │  │componentDidUpd │ │
-    │  │             │  │ delete     │  │ref attachment   │ │
-    │  └────────────┘  └────────────┘  └────────────────┘ │
+    │  │             │  │ delete     │  │ref attachment  │ │
+    │  └─────────────┘  └────────────┘  └────────────────┘ │
     │                                                      │
     └──────────────────────────────────────────────────────┘
                            │
